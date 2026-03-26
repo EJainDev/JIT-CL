@@ -112,8 +112,6 @@ void test_additional_ops(JitState state) {
   JitTracer b{state};
   JitTracer c{state};
   auto cs = a.copysign(b);
-  auto fm = a.fma(b, c);
-  auto md = a.mad(b, c);
   auto rs = a.rsqrt();
   auto cs_scalar = a.copysign(1.0f);
 }
