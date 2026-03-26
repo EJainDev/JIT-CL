@@ -1,6 +1,6 @@
 #include <CL/opencl.hpp>
-#include <memory>
 #include <iostream>
+#include <memory>
 
 #include "jit.h"
 #include "jit/state.h"
@@ -116,8 +116,6 @@ void test_additional_ops(JitState state) {
   auto md = a.mad(b, c);
   auto rs = a.rsqrt();
   auto cs_scalar = a.copysign(1.0f);
-  auto fm_scalar = a.fma(2.0f, 3.0f);
-  auto md_scalar = a.mad(2.0f, 3.0f);
 }
 
 void test_special_ops(JitState state) {
@@ -151,15 +149,14 @@ void test_scalar_operations(JitState state) {
   auto mul_s = a.mul(2.0f);
   auto pow_s = a.pow(2.0f);
   auto clamp_s = a.clamp(-1.0f, 1.0f);
-  auto fma_s = a.fma(2.0f, 3.0f);  // a * 2.0 + 3.0
 }
 
 auto main() -> int {
   std::cout << "JIT-CL Comprehensive Test Suite\n";
   std::cout << "================================\n";
-  
+
   auto state = JitState(std::make_shared<internal::JitState>());
-  
+
   // Run all tests
   test_basic_ops(state);
   test_comparison_ops(state);
@@ -173,12 +170,12 @@ auto main() -> int {
   test_special_ops(state);
   test_chained_ops(state);
   test_scalar_operations(state);
-  
+
   // Generate kernel to verify all operations compile correctly
   std::cout << "\n=== Generated Kernel Code ===\n";
   JitTracer input1{state};
   JitTracer input2{state};
-  
+
   try {
     genKernel(cl::Context(), state, {input1, input2});
     std::cout << "\n=== All Operations Successfully Compiled! ===\n";
@@ -186,6 +183,6 @@ auto main() -> int {
     std::cerr << "Error: " << e.what() << '\n';
     return 1;
   }
-  
+
   return 0;
 }

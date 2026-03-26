@@ -211,8 +211,10 @@ auto JitTracer::greater_than(JitTracer other) const -> JitTracer {
 auto JitTracer::greater_than_or_equal(JitTracer other) const -> JitTracer {
   JitTracer result(_data->state);
   _data->state->mtx.lock();
-  _data->state->operations.push_back(
-      {.op = internal::Operations::GreaterThanOrEqual, .output = result, .lhs = *this, .rhs = other});
+  _data->state->operations.push_back({.op = internal::Operations::GreaterThanOrEqual,
+                                      .output = result,
+                                      .lhs = *this,
+                                      .rhs = other});
   _data->state->mtx.unlock();
   return result;
 }
@@ -220,8 +222,10 @@ auto JitTracer::greater_than_or_equal(JitTracer other) const -> JitTracer {
 auto JitTracer::equal(float other) const -> JitTracer {
   JitTracer result(_data->state);
   _data->state->mtx.lock();
-  _data->state->operations.push_back(
-      {.op = internal::Operations::EqualScalar, .output = result, .lhs = *this, .rhs_scalar = other});
+  _data->state->operations.push_back({.op = internal::Operations::EqualScalar,
+                                      .output = result,
+                                      .lhs = *this,
+                                      .rhs_scalar = other});
   _data->state->mtx.unlock();
   return result;
 }
@@ -229,8 +233,10 @@ auto JitTracer::equal(float other) const -> JitTracer {
 auto JitTracer::not_equal(float other) const -> JitTracer {
   JitTracer result(_data->state);
   _data->state->mtx.lock();
-  _data->state->operations.push_back(
-      {.op = internal::Operations::NotEqualScalar, .output = result, .lhs = *this, .rhs_scalar = other});
+  _data->state->operations.push_back({.op = internal::Operations::NotEqualScalar,
+                                      .output = result,
+                                      .lhs = *this,
+                                      .rhs_scalar = other});
   _data->state->mtx.unlock();
   return result;
 }
@@ -238,8 +244,10 @@ auto JitTracer::not_equal(float other) const -> JitTracer {
 auto JitTracer::less_than(float other) const -> JitTracer {
   JitTracer result(_data->state);
   _data->state->mtx.lock();
-  _data->state->operations.push_back(
-      {.op = internal::Operations::LessThanScalar, .output = result, .lhs = *this, .rhs_scalar = other});
+  _data->state->operations.push_back({.op = internal::Operations::LessThanScalar,
+                                      .output = result,
+                                      .lhs = *this,
+                                      .rhs_scalar = other});
   _data->state->mtx.unlock();
   return result;
 }
@@ -247,8 +255,10 @@ auto JitTracer::less_than(float other) const -> JitTracer {
 auto JitTracer::less_than_or_equal(float other) const -> JitTracer {
   JitTracer result(_data->state);
   _data->state->mtx.lock();
-  _data->state->operations.push_back(
-      {.op = internal::Operations::LessThanOrEqualScalar, .output = result, .lhs = *this, .rhs_scalar = other});
+  _data->state->operations.push_back({.op = internal::Operations::LessThanOrEqualScalar,
+                                      .output = result,
+                                      .lhs = *this,
+                                      .rhs_scalar = other});
   _data->state->mtx.unlock();
   return result;
 }
@@ -256,8 +266,10 @@ auto JitTracer::less_than_or_equal(float other) const -> JitTracer {
 auto JitTracer::greater_than(float other) const -> JitTracer {
   JitTracer result(_data->state);
   _data->state->mtx.lock();
-  _data->state->operations.push_back(
-      {.op = internal::Operations::GreaterThanScalar, .output = result, .lhs = *this, .rhs_scalar = other});
+  _data->state->operations.push_back({.op = internal::Operations::GreaterThanScalar,
+                                      .output = result,
+                                      .lhs = *this,
+                                      .rhs_scalar = other});
   _data->state->mtx.unlock();
   return result;
 }
@@ -265,8 +277,10 @@ auto JitTracer::greater_than(float other) const -> JitTracer {
 auto JitTracer::greater_than_or_equal(float other) const -> JitTracer {
   JitTracer result(_data->state);
   _data->state->mtx.lock();
-  _data->state->operations.push_back(
-      {.op = internal::Operations::GreaterThanOrEqualScalar, .output = result, .lhs = *this, .rhs_scalar = other});
+  _data->state->operations.push_back({.op = internal::Operations::GreaterThanOrEqualScalar,
+                                      .output = result,
+                                      .lhs = *this,
+                                      .rhs_scalar = other});
   _data->state->mtx.unlock();
   return result;
 }
@@ -503,8 +517,10 @@ auto JitTracer::pow(float other) const -> JitTracer {
 auto JitTracer::pown(float other) const -> JitTracer {
   JitTracer result(_data->state);
   _data->state->mtx.lock();
-  _data->state->operations.push_back(
-      {.op = internal::Operations::PownScalar, .output = result, .lhs = *this, .rhs_scalar = other});
+  _data->state->operations.push_back({.op = internal::Operations::PownScalar,
+                                      .output = result,
+                                      .lhs = *this,
+                                      .rhs_scalar = other});
   _data->state->mtx.unlock();
   return result;
 }
@@ -512,8 +528,10 @@ auto JitTracer::pown(float other) const -> JitTracer {
 auto JitTracer::powr(float other) const -> JitTracer {
   JitTracer result(_data->state);
   _data->state->mtx.lock();
-  _data->state->operations.push_back(
-      {.op = internal::Operations::PowrScalar, .output = result, .lhs = *this, .rhs_scalar = other});
+  _data->state->operations.push_back({.op = internal::Operations::PowrScalar,
+                                      .output = result,
+                                      .lhs = *this,
+                                      .rhs_scalar = other});
   _data->state->mtx.unlock();
   return result;
 }
@@ -613,8 +631,11 @@ auto JitTracer::max(JitTracer other) const -> JitTracer {
 auto JitTracer::clamp(JitTracer min_val, JitTracer max_val) const -> JitTracer {
   JitTracer result(_data->state);
   _data->state->mtx.lock();
-  _data->state->operations.push_back(
-      {.op = internal::Operations::Clamp, .output = result, .lhs = *this, .rhs = min_val, .rhs2 = max_val});
+  _data->state->operations.push_back({.op = internal::Operations::Clamp,
+                                      .output = result,
+                                      .lhs = *this,
+                                      .rhs = min_val,
+                                      .rhs2 = max_val});
   _data->state->mtx.unlock();
   return result;
 }
@@ -649,8 +670,11 @@ auto JitTracer::max(float other) const -> JitTracer {
 auto JitTracer::clamp(float min_val, float max_val) const -> JitTracer {
   JitTracer result(_data->state);
   _data->state->mtx.lock();
-  _data->state->operations.push_back(
-      {.op = internal::Operations::ClampScalar, .output = result, .lhs = *this, .rhs_scalar = min_val, .rhs2_scalar = max_val});
+  _data->state->operations.push_back({.op = internal::Operations::ClampScalar,
+                                      .output = result,
+                                      .lhs = *this,
+                                      .rhs_scalar = min_val,
+                                      .rhs2_scalar = max_val});
   _data->state->mtx.unlock();
   return result;
 }
@@ -658,8 +682,10 @@ auto JitTracer::clamp(float min_val, float max_val) const -> JitTracer {
 auto JitTracer::fmod(float other) const -> JitTracer {
   JitTracer result(_data->state);
   _data->state->mtx.lock();
-  _data->state->operations.push_back(
-      {.op = internal::Operations::FmodScalar, .output = result, .lhs = *this, .rhs_scalar = other});
+  _data->state->operations.push_back({.op = internal::Operations::FmodScalar,
+                                      .output = result,
+                                      .lhs = *this,
+                                      .rhs_scalar = other});
   _data->state->mtx.unlock();
   return result;
 }
@@ -670,24 +696,6 @@ auto JitTracer::copysign(JitTracer other) const -> JitTracer {
   _data->state->mtx.lock();
   _data->state->operations.push_back(
       {.op = internal::Operations::Copysign, .output = result, .lhs = *this, .rhs = other});
-  _data->state->mtx.unlock();
-  return result;
-}
-
-auto JitTracer::fma(JitTracer mul_val, JitTracer add_val) const -> JitTracer {
-  JitTracer result(_data->state);
-  _data->state->mtx.lock();
-  _data->state->operations.push_back(
-      {.op = internal::Operations::Fma, .output = result, .lhs = *this, .rhs = mul_val, .rhs2 = add_val});
-  _data->state->mtx.unlock();
-  return result;
-}
-
-auto JitTracer::mad(JitTracer mul_val, JitTracer add_val) const -> JitTracer {
-  JitTracer result(_data->state);
-  _data->state->mtx.lock();
-  _data->state->operations.push_back(
-      {.op = internal::Operations::Mad, .output = result, .lhs = *this, .rhs = mul_val, .rhs2 = add_val});
   _data->state->mtx.unlock();
   return result;
 }
@@ -704,26 +712,10 @@ auto JitTracer::rsqrt() const -> JitTracer {
 auto JitTracer::copysign(float other) const -> JitTracer {
   JitTracer result(_data->state);
   _data->state->mtx.lock();
-  _data->state->operations.push_back(
-      {.op = internal::Operations::CopysignScalar, .output = result, .lhs = *this, .rhs_scalar = other});
-  _data->state->mtx.unlock();
-  return result;
-}
-
-auto JitTracer::fma(float mul_val, float add_val) const -> JitTracer {
-  JitTracer result(_data->state);
-  _data->state->mtx.lock();
-  _data->state->operations.push_back(
-      {.op = internal::Operations::FmaScalar, .output = result, .lhs = *this, .rhs_scalar = mul_val, .rhs2_scalar = add_val});
-  _data->state->mtx.unlock();
-  return result;
-}
-
-auto JitTracer::mad(float mul_val, float add_val) const -> JitTracer {
-  JitTracer result(_data->state);
-  _data->state->mtx.lock();
-  _data->state->operations.push_back(
-      {.op = internal::Operations::MadScalar, .output = result, .lhs = *this, .rhs_scalar = mul_val, .rhs2_scalar = add_val});
+  _data->state->operations.push_back({.op = internal::Operations::CopysignScalar,
+                                      .output = result,
+                                      .lhs = *this,
+                                      .rhs_scalar = other});
   _data->state->mtx.unlock();
   return result;
 }
@@ -768,8 +760,10 @@ auto JitTracer::erfc() const -> JitTracer {
 auto JitTracer::hypot(float other) const -> JitTracer {
   JitTracer result(_data->state);
   _data->state->mtx.lock();
-  _data->state->operations.push_back(
-      {.op = internal::Operations::HypotScalar, .output = result, .lhs = *this, .rhs_scalar = other});
+  _data->state->operations.push_back({.op = internal::Operations::HypotScalar,
+                                      .output = result,
+                                      .lhs = *this,
+                                      .rhs_scalar = other});
   _data->state->mtx.unlock();
   return result;
 }

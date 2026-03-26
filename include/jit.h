@@ -147,41 +147,47 @@ for (int i = global1 - 1; i > 0; i >>= 1) {{
             operation.output._data->name, operation.lhs._data->name, operation.rhs_scalar);
         break;
       }
-      
+
       // Comparison operations
       case internal::Operations::Equal: {
         kernel += std::format(
-            "{0}[gid1 * {0}_stride[gid0]] = {1}[gid1 * {1}_stride[gid0]] == {2}[gid1 * {2}_stride[gid0]];\n",
+            "{0}[gid1 * {0}_stride[gid0]] = {1}[gid1 * {1}_stride[gid0]] == {2}[gid1 * "
+            "{2}_stride[gid0]];\n",
             operation.output._data->name, operation.lhs._data->name, operation.rhs._data->name);
         break;
       }
       case internal::Operations::NotEqual: {
         kernel += std::format(
-            "{0}[gid1 * {0}_stride[gid0]] = {1}[gid1 * {1}_stride[gid0]] != {2}[gid1 * {2}_stride[gid0]];\n",
+            "{0}[gid1 * {0}_stride[gid0]] = {1}[gid1 * {1}_stride[gid0]] != {2}[gid1 * "
+            "{2}_stride[gid0]];\n",
             operation.output._data->name, operation.lhs._data->name, operation.rhs._data->name);
         break;
       }
       case internal::Operations::LessThan: {
         kernel += std::format(
-            "{0}[gid1 * {0}_stride[gid0]] = {1}[gid1 * {1}_stride[gid0]] < {2}[gid1 * {2}_stride[gid0]];\n",
+            "{0}[gid1 * {0}_stride[gid0]] = {1}[gid1 * {1}_stride[gid0]] < {2}[gid1 * "
+            "{2}_stride[gid0]];\n",
             operation.output._data->name, operation.lhs._data->name, operation.rhs._data->name);
         break;
       }
       case internal::Operations::LessThanOrEqual: {
         kernel += std::format(
-            "{0}[gid1 * {0}_stride[gid0]] = {1}[gid1 * {1}_stride[gid0]] <= {2}[gid1 * {2}_stride[gid0]];\n",
+            "{0}[gid1 * {0}_stride[gid0]] = {1}[gid1 * {1}_stride[gid0]] <= {2}[gid1 * "
+            "{2}_stride[gid0]];\n",
             operation.output._data->name, operation.lhs._data->name, operation.rhs._data->name);
         break;
       }
       case internal::Operations::GreaterThan: {
         kernel += std::format(
-            "{0}[gid1 * {0}_stride[gid0]] = {1}[gid1 * {1}_stride[gid0]] > {2}[gid1 * {2}_stride[gid0]];\n",
+            "{0}[gid1 * {0}_stride[gid0]] = {1}[gid1 * {1}_stride[gid0]] > {2}[gid1 * "
+            "{2}_stride[gid0]];\n",
             operation.output._data->name, operation.lhs._data->name, operation.rhs._data->name);
         break;
       }
       case internal::Operations::GreaterThanOrEqual: {
         kernel += std::format(
-            "{0}[gid1 * {0}_stride[gid0]] = {1}[gid1 * {1}_stride[gid0]] >= {2}[gid1 * {2}_stride[gid0]];\n",
+            "{0}[gid1 * {0}_stride[gid0]] = {1}[gid1 * {1}_stride[gid0]] >= {2}[gid1 * "
+            "{2}_stride[gid0]];\n",
             operation.output._data->name, operation.lhs._data->name, operation.rhs._data->name);
         break;
       }
@@ -221,42 +227,39 @@ for (int i = global1 - 1; i > 0; i >>= 1) {{
             operation.output._data->name, operation.lhs._data->name, operation.rhs_scalar);
         break;
       }
-      
+
       // Trigonometric functions
       case internal::Operations::Sin: {
-        kernel += std::format(
-            "{0}[gid1 * {0}_stride[gid0]] = sin({1}[gid1 * {1}_stride[gid0]]);\n",
-            operation.output._data->name, operation.lhs._data->name);
+        kernel += std::format("{0}[gid1 * {0}_stride[gid0]] = sin({1}[gid1 * {1}_stride[gid0]]);\n",
+                              operation.output._data->name, operation.lhs._data->name);
         break;
       }
       case internal::Operations::Cos: {
-        kernel += std::format(
-            "{0}[gid1 * {0}_stride[gid0]] = cos({1}[gid1 * {1}_stride[gid0]]);\n",
-            operation.output._data->name, operation.lhs._data->name);
+        kernel += std::format("{0}[gid1 * {0}_stride[gid0]] = cos({1}[gid1 * {1}_stride[gid0]]);\n",
+                              operation.output._data->name, operation.lhs._data->name);
         break;
       }
       case internal::Operations::Tan: {
-        kernel += std::format(
-            "{0}[gid1 * {0}_stride[gid0]] = tan({1}[gid1 * {1}_stride[gid0]]);\n",
-            operation.output._data->name, operation.lhs._data->name);
+        kernel += std::format("{0}[gid1 * {0}_stride[gid0]] = tan({1}[gid1 * {1}_stride[gid0]]);\n",
+                              operation.output._data->name, operation.lhs._data->name);
         break;
       }
       case internal::Operations::Asin: {
-        kernel += std::format(
-            "{0}[gid1 * {0}_stride[gid0]] = asin({1}[gid1 * {1}_stride[gid0]]);\n",
-            operation.output._data->name, operation.lhs._data->name);
+        kernel +=
+            std::format("{0}[gid1 * {0}_stride[gid0]] = asin({1}[gid1 * {1}_stride[gid0]]);\n",
+                        operation.output._data->name, operation.lhs._data->name);
         break;
       }
       case internal::Operations::Acos: {
-        kernel += std::format(
-            "{0}[gid1 * {0}_stride[gid0]] = acos({1}[gid1 * {1}_stride[gid0]]);\n",
-            operation.output._data->name, operation.lhs._data->name);
+        kernel +=
+            std::format("{0}[gid1 * {0}_stride[gid0]] = acos({1}[gid1 * {1}_stride[gid0]]);\n",
+                        operation.output._data->name, operation.lhs._data->name);
         break;
       }
       case internal::Operations::Atan: {
-        kernel += std::format(
-            "{0}[gid1 * {0}_stride[gid0]] = atan({1}[gid1 * {1}_stride[gid0]]);\n",
-            operation.output._data->name, operation.lhs._data->name);
+        kernel +=
+            std::format("{0}[gid1 * {0}_stride[gid0]] = atan({1}[gid1 * {1}_stride[gid0]]);\n",
+                        operation.output._data->name, operation.lhs._data->name);
         break;
       }
       case internal::Operations::SinScalar:
@@ -267,42 +270,42 @@ for (int i = global1 - 1; i > 0; i >>= 1) {{
       case internal::Operations::AtanScalar:
         // Scalar trig functions don't make sense in this context - ignore
         break;
-        
+
       // Hyperbolic functions
       case internal::Operations::Sinh: {
-        kernel += std::format(
-            "{0}[gid1 * {0}_stride[gid0]] = sinh({1}[gid1 * {1}_stride[gid0]]);\n",
-            operation.output._data->name, operation.lhs._data->name);
+        kernel +=
+            std::format("{0}[gid1 * {0}_stride[gid0]] = sinh({1}[gid1 * {1}_stride[gid0]]);\n",
+                        operation.output._data->name, operation.lhs._data->name);
         break;
       }
       case internal::Operations::Cosh: {
-        kernel += std::format(
-            "{0}[gid1 * {0}_stride[gid0]] = cosh({1}[gid1 * {1}_stride[gid0]]);\n",
-            operation.output._data->name, operation.lhs._data->name);
+        kernel +=
+            std::format("{0}[gid1 * {0}_stride[gid0]] = cosh({1}[gid1 * {1}_stride[gid0]]);\n",
+                        operation.output._data->name, operation.lhs._data->name);
         break;
       }
       case internal::Operations::Tanh: {
-        kernel += std::format(
-            "{0}[gid1 * {0}_stride[gid0]] = tanh({1}[gid1 * {1}_stride[gid0]]);\n",
-            operation.output._data->name, operation.lhs._data->name);
+        kernel +=
+            std::format("{0}[gid1 * {0}_stride[gid0]] = tanh({1}[gid1 * {1}_stride[gid0]]);\n",
+                        operation.output._data->name, operation.lhs._data->name);
         break;
       }
       case internal::Operations::Asinh: {
-        kernel += std::format(
-            "{0}[gid1 * {0}_stride[gid0]] = asinh({1}[gid1 * {1}_stride[gid0]]);\n",
-            operation.output._data->name, operation.lhs._data->name);
+        kernel +=
+            std::format("{0}[gid1 * {0}_stride[gid0]] = asinh({1}[gid1 * {1}_stride[gid0]]);\n",
+                        operation.output._data->name, operation.lhs._data->name);
         break;
       }
       case internal::Operations::Acosh: {
-        kernel += std::format(
-            "{0}[gid1 * {0}_stride[gid0]] = acosh({1}[gid1 * {1}_stride[gid0]]);\n",
-            operation.output._data->name, operation.lhs._data->name);
+        kernel +=
+            std::format("{0}[gid1 * {0}_stride[gid0]] = acosh({1}[gid1 * {1}_stride[gid0]]);\n",
+                        operation.output._data->name, operation.lhs._data->name);
         break;
       }
       case internal::Operations::Atanh: {
-        kernel += std::format(
-            "{0}[gid1 * {0}_stride[gid0]] = atanh({1}[gid1 * {1}_stride[gid0]]);\n",
-            operation.output._data->name, operation.lhs._data->name);
+        kernel +=
+            std::format("{0}[gid1 * {0}_stride[gid0]] = atanh({1}[gid1 * {1}_stride[gid0]]);\n",
+                        operation.output._data->name, operation.lhs._data->name);
         break;
       }
       case internal::Operations::SinhScalar:
@@ -313,54 +316,52 @@ for (int i = global1 - 1; i > 0; i >>= 1) {{
       case internal::Operations::AtanhScalar:
         // Scalar hyperbolic functions don't make sense - ignore
         break;
-        
+
       // Exponential and logarithmic functions
       case internal::Operations::Exp: {
-        kernel += std::format(
-            "{0}[gid1 * {0}_stride[gid0]] = exp({1}[gid1 * {1}_stride[gid0]]);\n",
-            operation.output._data->name, operation.lhs._data->name);
+        kernel += std::format("{0}[gid1 * {0}_stride[gid0]] = exp({1}[gid1 * {1}_stride[gid0]]);\n",
+                              operation.output._data->name, operation.lhs._data->name);
         break;
       }
       case internal::Operations::Exp2: {
-        kernel += std::format(
-            "{0}[gid1 * {0}_stride[gid0]] = exp2({1}[gid1 * {1}_stride[gid0]]);\n",
-            operation.output._data->name, operation.lhs._data->name);
+        kernel +=
+            std::format("{0}[gid1 * {0}_stride[gid0]] = exp2({1}[gid1 * {1}_stride[gid0]]);\n",
+                        operation.output._data->name, operation.lhs._data->name);
         break;
       }
       case internal::Operations::Exp10: {
-        kernel += std::format(
-            "{0}[gid1 * {0}_stride[gid0]] = exp10({1}[gid1 * {1}_stride[gid0]]);\n",
-            operation.output._data->name, operation.lhs._data->name);
+        kernel +=
+            std::format("{0}[gid1 * {0}_stride[gid0]] = exp10({1}[gid1 * {1}_stride[gid0]]);\n",
+                        operation.output._data->name, operation.lhs._data->name);
         break;
       }
       case internal::Operations::Expm1: {
-        kernel += std::format(
-            "{0}[gid1 * {0}_stride[gid0]] = expm1({1}[gid1 * {1}_stride[gid0]]);\n",
-            operation.output._data->name, operation.lhs._data->name);
+        kernel +=
+            std::format("{0}[gid1 * {0}_stride[gid0]] = expm1({1}[gid1 * {1}_stride[gid0]]);\n",
+                        operation.output._data->name, operation.lhs._data->name);
         break;
       }
       case internal::Operations::Log: {
-        kernel += std::format(
-            "{0}[gid1 * {0}_stride[gid0]] = log({1}[gid1 * {1}_stride[gid0]]);\n",
-            operation.output._data->name, operation.lhs._data->name);
+        kernel += std::format("{0}[gid1 * {0}_stride[gid0]] = log({1}[gid1 * {1}_stride[gid0]]);\n",
+                              operation.output._data->name, operation.lhs._data->name);
         break;
       }
       case internal::Operations::Log2: {
-        kernel += std::format(
-            "{0}[gid1 * {0}_stride[gid0]] = log2({1}[gid1 * {1}_stride[gid0]]);\n",
-            operation.output._data->name, operation.lhs._data->name);
+        kernel +=
+            std::format("{0}[gid1 * {0}_stride[gid0]] = log2({1}[gid1 * {1}_stride[gid0]]);\n",
+                        operation.output._data->name, operation.lhs._data->name);
         break;
       }
       case internal::Operations::Log10: {
-        kernel += std::format(
-            "{0}[gid1 * {0}_stride[gid0]] = log10({1}[gid1 * {1}_stride[gid0]]);\n",
-            operation.output._data->name, operation.lhs._data->name);
+        kernel +=
+            std::format("{0}[gid1 * {0}_stride[gid0]] = log10({1}[gid1 * {1}_stride[gid0]]);\n",
+                        operation.output._data->name, operation.lhs._data->name);
         break;
       }
       case internal::Operations::Log1p: {
-        kernel += std::format(
-            "{0}[gid1 * {0}_stride[gid0]] = log1p({1}[gid1 * {1}_stride[gid0]]);\n",
-            operation.output._data->name, operation.lhs._data->name);
+        kernel +=
+            std::format("{0}[gid1 * {0}_stride[gid0]] = log1p({1}[gid1 * {1}_stride[gid0]]);\n",
+                        operation.output._data->name, operation.lhs._data->name);
         break;
       }
       case internal::Operations::ExpScalar:
@@ -373,30 +374,33 @@ for (int i = global1 - 1; i > 0; i >>= 1) {{
       case internal::Operations::Log1pScalar:
         // Scalar exp/log functions don't make sense - ignore
         break;
-        
+
       // Power functions
       case internal::Operations::Pow: {
         kernel += std::format(
-            "{0}[gid1 * {0}_stride[gid0]] = pow({1}[gid1 * {1}_stride[gid0]], {2}[gid1 * {2}_stride[gid0]]);\n",
+            "{0}[gid1 * {0}_stride[gid0]] = pow({1}[gid1 * {1}_stride[gid0]], {2}[gid1 * "
+            "{2}_stride[gid0]]);\n",
             operation.output._data->name, operation.lhs._data->name, operation.rhs._data->name);
         break;
       }
       case internal::Operations::Pown: {
         kernel += std::format(
-            "{0}[gid1 * {0}_stride[gid0]] = pown({1}[gid1 * {1}_stride[gid0]], (int){2}[gid1 * {2}_stride[gid0]]);\n",
+            "{0}[gid1 * {0}_stride[gid0]] = pown({1}[gid1 * {1}_stride[gid0]], (int){2}[gid1 * "
+            "{2}_stride[gid0]]);\n",
             operation.output._data->name, operation.lhs._data->name, operation.rhs._data->name);
         break;
       }
       case internal::Operations::Powr: {
         kernel += std::format(
-            "{0}[gid1 * {0}_stride[gid0]] = powr({1}[gid1 * {1}_stride[gid0]], {2}[gid1 * {2}_stride[gid0]]);\n",
+            "{0}[gid1 * {0}_stride[gid0]] = powr({1}[gid1 * {1}_stride[gid0]], {2}[gid1 * "
+            "{2}_stride[gid0]]);\n",
             operation.output._data->name, operation.lhs._data->name, operation.rhs._data->name);
         break;
       }
       case internal::Operations::Sqrt: {
-        kernel += std::format(
-            "{0}[gid1 * {0}_stride[gid0]] = sqrt({1}[gid1 * {1}_stride[gid0]]);\n",
-            operation.output._data->name, operation.lhs._data->name);
+        kernel +=
+            std::format("{0}[gid1 * {0}_stride[gid0]] = sqrt({1}[gid1 * {1}_stride[gid0]]);\n",
+                        operation.output._data->name, operation.lhs._data->name);
         break;
       }
       case internal::Operations::PowScalar: {
@@ -420,54 +424,54 @@ for (int i = global1 - 1; i > 0; i >>= 1) {{
       case internal::Operations::SqrtScalar:
         // Scalar sqrt doesn't make sense - ignore
         break;
-        
+
       // Rounding and absolute value functions
       case internal::Operations::Floor: {
-        kernel += std::format(
-            "{0}[gid1 * {0}_stride[gid0]] = floor({1}[gid1 * {1}_stride[gid0]]);\n",
-            operation.output._data->name, operation.lhs._data->name);
+        kernel +=
+            std::format("{0}[gid1 * {0}_stride[gid0]] = floor({1}[gid1 * {1}_stride[gid0]]);\n",
+                        operation.output._data->name, operation.lhs._data->name);
         break;
       }
       case internal::Operations::Ceil: {
-        kernel += std::format(
-            "{0}[gid1 * {0}_stride[gid0]] = ceil({1}[gid1 * {1}_stride[gid0]]);\n",
-            operation.output._data->name, operation.lhs._data->name);
+        kernel +=
+            std::format("{0}[gid1 * {0}_stride[gid0]] = ceil({1}[gid1 * {1}_stride[gid0]]);\n",
+                        operation.output._data->name, operation.lhs._data->name);
         break;
       }
       case internal::Operations::Round: {
-        kernel += std::format(
-            "{0}[gid1 * {0}_stride[gid0]] = round({1}[gid1 * {1}_stride[gid0]]);\n",
-            operation.output._data->name, operation.lhs._data->name);
+        kernel +=
+            std::format("{0}[gid1 * {0}_stride[gid0]] = round({1}[gid1 * {1}_stride[gid0]]);\n",
+                        operation.output._data->name, operation.lhs._data->name);
         break;
       }
       case internal::Operations::Trunc: {
-        kernel += std::format(
-            "{0}[gid1 * {0}_stride[gid0]] = trunc({1}[gid1 * {1}_stride[gid0]]);\n",
-            operation.output._data->name, operation.lhs._data->name);
+        kernel +=
+            std::format("{0}[gid1 * {0}_stride[gid0]] = trunc({1}[gid1 * {1}_stride[gid0]]);\n",
+                        operation.output._data->name, operation.lhs._data->name);
         break;
       }
       case internal::Operations::Abs: {
-        kernel += std::format(
-            "{0}[gid1 * {0}_stride[gid0]] = fabs({1}[gid1 * {1}_stride[gid0]]);\n",
-            operation.output._data->name, operation.lhs._data->name);
+        kernel +=
+            std::format("{0}[gid1 * {0}_stride[gid0]] = fabs({1}[gid1 * {1}_stride[gid0]]);\n",
+                        operation.output._data->name, operation.lhs._data->name);
         break;
       }
       case internal::Operations::Fabs: {
-        kernel += std::format(
-            "{0}[gid1 * {0}_stride[gid0]] = fabs({1}[gid1 * {1}_stride[gid0]]);\n",
-            operation.output._data->name, operation.lhs._data->name);
+        kernel +=
+            std::format("{0}[gid1 * {0}_stride[gid0]] = fabs({1}[gid1 * {1}_stride[gid0]]);\n",
+                        operation.output._data->name, operation.lhs._data->name);
         break;
       }
       case internal::Operations::Sign: {
-        kernel += std::format(
-            "{0}[gid1 * {0}_stride[gid0]] = sign({1}[gid1 * {1}_stride[gid0]]);\n",
-            operation.output._data->name, operation.lhs._data->name);
+        kernel +=
+            std::format("{0}[gid1 * {0}_stride[gid0]] = sign({1}[gid1 * {1}_stride[gid0]]);\n",
+                        operation.output._data->name, operation.lhs._data->name);
         break;
       }
       case internal::Operations::Fract: {
-        kernel += std::format(
-            "{0}[gid1 * {0}_stride[gid0]] = fract({1}[gid1 * {1}_stride[gid0]]);\n",
-            operation.output._data->name, operation.lhs._data->name);
+        kernel +=
+            std::format("{0}[gid1 * {0}_stride[gid0]] = fract({1}[gid1 * {1}_stride[gid0]]);\n",
+                        operation.output._data->name, operation.lhs._data->name);
         break;
       }
       case internal::Operations::FloorScalar:
@@ -480,29 +484,34 @@ for (int i = global1 - 1; i > 0; i >>= 1) {{
       case internal::Operations::FractScalar:
         // Scalar rounding functions don't make sense - ignore
         break;
-        
+
       // Min/Max/Clamp functions
       case internal::Operations::Min: {
         kernel += std::format(
-            "{0}[gid1 * {0}_stride[gid0]] = fmin({1}[gid1 * {1}_stride[gid0]], {2}[gid1 * {2}_stride[gid0]]);\n",
+            "{0}[gid1 * {0}_stride[gid0]] = fmin({1}[gid1 * {1}_stride[gid0]], {2}[gid1 * "
+            "{2}_stride[gid0]]);\n",
             operation.output._data->name, operation.lhs._data->name, operation.rhs._data->name);
         break;
       }
       case internal::Operations::Max: {
         kernel += std::format(
-            "{0}[gid1 * {0}_stride[gid0]] = fmax({1}[gid1 * {1}_stride[gid0]], {2}[gid1 * {2}_stride[gid0]]);\n",
+            "{0}[gid1 * {0}_stride[gid0]] = fmax({1}[gid1 * {1}_stride[gid0]], {2}[gid1 * "
+            "{2}_stride[gid0]]);\n",
             operation.output._data->name, operation.lhs._data->name, operation.rhs._data->name);
         break;
       }
       case internal::Operations::Clamp: {
         kernel += std::format(
-            "{0}[gid1 * {0}_stride[gid0]] = clamp({1}[gid1 * {1}_stride[gid0]], {2}[gid1 * {2}_stride[gid0]], {3}[gid1 * {3}_stride[gid0]]);\n",
-            operation.output._data->name, operation.lhs._data->name, operation.rhs._data->name, operation.rhs2._data->name);
+            "{0}[gid1 * {0}_stride[gid0]] = clamp({1}[gid1 * {1}_stride[gid0]], {2}[gid1 * "
+            "{2}_stride[gid0]], {3}[gid1 * {3}_stride[gid0]]);\n",
+            operation.output._data->name, operation.lhs._data->name, operation.rhs._data->name,
+            operation.rhs2._data->name);
         break;
       }
       case internal::Operations::Fmod: {
         kernel += std::format(
-            "{0}[gid1 * {0}_stride[gid0]] = fmod({1}[gid1 * {1}_stride[gid0]], {2}[gid1 * {2}_stride[gid0]]);\n",
+            "{0}[gid1 * {0}_stride[gid0]] = fmod({1}[gid1 * {1}_stride[gid0]], {2}[gid1 * "
+            "{2}_stride[gid0]]);\n",
             operation.output._data->name, operation.lhs._data->name, operation.rhs._data->name);
         break;
       }
@@ -521,7 +530,8 @@ for (int i = global1 - 1; i > 0; i >>= 1) {{
       case internal::Operations::ClampScalar: {
         kernel += std::format(
             "{0}[gid1 * {0}_stride[gid0]] = clamp({1}[gid1 * {1}_stride[gid0]], {2}, {3});\n",
-            operation.output._data->name, operation.lhs._data->name, operation.rhs_scalar, operation.rhs2_scalar);
+            operation.output._data->name, operation.lhs._data->name, operation.rhs_scalar,
+            operation.rhs2_scalar);
         break;
       }
       case internal::Operations::FmodScalar: {
@@ -530,30 +540,19 @@ for (int i = global1 - 1; i > 0; i >>= 1) {{
             operation.output._data->name, operation.lhs._data->name, operation.rhs_scalar);
         break;
       }
-      
+
       // Additional useful functions
       case internal::Operations::Copysign: {
         kernel += std::format(
-            "{0}[gid1 * {0}_stride[gid0]] = copysign({1}[gid1 * {1}_stride[gid0]], {2}[gid1 * {2}_stride[gid0]]);\n",
+            "{0}[gid1 * {0}_stride[gid0]] = copysign({1}[gid1 * {1}_stride[gid0]], {2}[gid1 * "
+            "{2}_stride[gid0]]);\n",
             operation.output._data->name, operation.lhs._data->name, operation.rhs._data->name);
         break;
       }
-      case internal::Operations::Fma: {
-        kernel += std::format(
-            "{0}[gid1 * {0}_stride[gid0]] = fma({1}[gid1 * {1}_stride[gid0]], {2}[gid1 * {2}_stride[gid0]], {3}[gid1 * {3}_stride[gid0]]);\n",
-            operation.output._data->name, operation.lhs._data->name, operation.rhs._data->name, operation.rhs2._data->name);
-        break;
-      }
-      case internal::Operations::Mad: {
-        kernel += std::format(
-            "{0}[gid1 * {0}_stride[gid0]] = mad({1}[gid1 * {1}_stride[gid0]], {2}[gid1 * {2}_stride[gid0]], {3}[gid1 * {3}_stride[gid0]]);\n",
-            operation.output._data->name, operation.lhs._data->name, operation.rhs._data->name, operation.rhs2._data->name);
-        break;
-      }
       case internal::Operations::Rsqrt: {
-        kernel += std::format(
-            "{0}[gid1 * {0}_stride[gid0]] = rsqrt({1}[gid1 * {1}_stride[gid0]]);\n",
-            operation.output._data->name, operation.lhs._data->name);
+        kernel +=
+            std::format("{0}[gid1 * {0}_stride[gid0]] = rsqrt({1}[gid1 * {1}_stride[gid0]]);\n",
+                        operation.output._data->name, operation.lhs._data->name);
         break;
       }
       case internal::Operations::CopysignScalar: {
@@ -565,42 +564,44 @@ for (int i = global1 - 1; i > 0; i >>= 1) {{
       case internal::Operations::FmaScalar: {
         kernel += std::format(
             "{0}[gid1 * {0}_stride[gid0]] = fma({1}[gid1 * {1}_stride[gid0]], {2}, {3});\n",
-            operation.output._data->name, operation.lhs._data->name, operation.rhs_scalar, operation.rhs2_scalar);
+            operation.output._data->name, operation.lhs._data->name, operation.rhs_scalar,
+            operation.rhs2_scalar);
         break;
       }
       case internal::Operations::MadScalar: {
         kernel += std::format(
             "{0}[gid1 * {0}_stride[gid0]] = mad({1}[gid1 * {1}_stride[gid0]], {2}, {3});\n",
-            operation.output._data->name, operation.lhs._data->name, operation.rhs_scalar, operation.rhs2_scalar);
+            operation.output._data->name, operation.lhs._data->name, operation.rhs_scalar,
+            operation.rhs2_scalar);
         break;
       }
       case internal::Operations::RsqrtScalar:
         // Scalar rsqrt doesn't make sense - ignore
         break;
-        
+
       // Special mathematical functions
       case internal::Operations::Cbrt: {
-        kernel += std::format(
-            "{0}[gid1 * {0}_stride[gid0]] = cbrt({1}[gid1 * {1}_stride[gid0]]);\n",
-            operation.output._data->name, operation.lhs._data->name);
+        kernel +=
+            std::format("{0}[gid1 * {0}_stride[gid0]] = cbrt({1}[gid1 * {1}_stride[gid0]]);\n",
+                        operation.output._data->name, operation.lhs._data->name);
         break;
       }
       case internal::Operations::Hypot: {
         kernel += std::format(
-            "{0}[gid1 * {0}_stride[gid0]] = hypot({1}[gid1 * {1}_stride[gid0]], {2}[gid1 * {2}_stride[gid0]]);\n",
+            "{0}[gid1 * {0}_stride[gid0]] = hypot({1}[gid1 * {1}_stride[gid0]], {2}[gid1 * "
+            "{2}_stride[gid0]]);\n",
             operation.output._data->name, operation.lhs._data->name, operation.rhs._data->name);
         break;
       }
       case internal::Operations::Erf: {
-        kernel += std::format(
-            "{0}[gid1 * {0}_stride[gid0]] = erf({1}[gid1 * {1}_stride[gid0]]);\n",
-            operation.output._data->name, operation.lhs._data->name);
+        kernel += std::format("{0}[gid1 * {0}_stride[gid0]] = erf({1}[gid1 * {1}_stride[gid0]]);\n",
+                              operation.output._data->name, operation.lhs._data->name);
         break;
       }
       case internal::Operations::Erfc: {
-        kernel += std::format(
-            "{0}[gid1 * {0}_stride[gid0]] = erfc({1}[gid1 * {1}_stride[gid0]]);\n",
-            operation.output._data->name, operation.lhs._data->name);
+        kernel +=
+            std::format("{0}[gid1 * {0}_stride[gid0]] = erfc({1}[gid1 * {1}_stride[gid0]]);\n",
+                        operation.output._data->name, operation.lhs._data->name);
         break;
       }
       case internal::Operations::HypotScalar: {

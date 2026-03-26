@@ -25,7 +25,7 @@ enum class Operations : std::uint16_t {
   AndScalar,
   OrScalar,
   XorScalar,
-  
+
   // Comparison operations
   Equal,
   NotEqual,
@@ -39,7 +39,7 @@ enum class Operations : std::uint16_t {
   LessThanOrEqualScalar,
   GreaterThanScalar,
   GreaterThanOrEqualScalar,
-  
+
   // Trigonometric functions
   Sin,
   Cos,
@@ -53,7 +53,7 @@ enum class Operations : std::uint16_t {
   AsinScalar,
   AcosScalar,
   AtanScalar,
-  
+
   // Hyperbolic functions
   Sinh,
   Cosh,
@@ -67,7 +67,7 @@ enum class Operations : std::uint16_t {
   AsinhScalar,
   AcoshScalar,
   AtanhScalar,
-  
+
   // Exponential and logarithmic functions
   Exp,
   Exp2,
@@ -85,7 +85,7 @@ enum class Operations : std::uint16_t {
   Log2Scalar,
   Log10Scalar,
   Log1pScalar,
-  
+
   // Power functions
   Pow,
   Pown,
@@ -95,7 +95,7 @@ enum class Operations : std::uint16_t {
   PownScalar,
   PowrScalar,
   SqrtScalar,
-  
+
   // Rounding and absolute value functions
   Floor,
   Ceil,
@@ -113,7 +113,7 @@ enum class Operations : std::uint16_t {
   FabsScalar,
   SignScalar,
   FractScalar,
-  
+
   // Min/Max/Clamp functions
   Min,
   Max,
@@ -123,17 +123,15 @@ enum class Operations : std::uint16_t {
   MaxScalar,
   ClampScalar,
   FmodScalar,
-  
+
   // Additional useful functions
   Copysign,
-  Fma,
-  Mad,
   Rsqrt,
   CopysignScalar,
   FmaScalar,
   MadScalar,
   RsqrtScalar,
-  
+
   // Special mathematical functions
   Cbrt,
   Hypot,

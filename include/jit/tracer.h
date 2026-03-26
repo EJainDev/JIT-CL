@@ -109,8 +109,6 @@ class JitTracer {
   [[nodiscard]] auto mad(JitTracer mul_val, JitTracer add_val) const -> JitTracer;
   [[nodiscard]] auto rsqrt() const -> JitTracer;
   [[nodiscard]] auto copysign(float other) const -> JitTracer;
-  [[nodiscard]] auto fma(float mul_val, float add_val) const -> JitTracer;
-  [[nodiscard]] auto mad(float mul_val, float add_val) const -> JitTracer;
 
   // Special mathematical functions
   [[nodiscard]] auto cbrt() const -> JitTracer;
