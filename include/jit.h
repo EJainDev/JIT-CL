@@ -13,8 +13,24 @@
 
 namespace jitcl {
 
-inline auto genKernel(cl::Context context, const JitState state,
-                      const std::vector<JitTracer>& params) -> cl::Kernel {
+inline void optimizeState(JitState state) {
+  for (int i = 0; i < state.get()->operations.size() - 1; ++i) {
+    if (state.get()->operations[i].op == internal::Operations::Multiply &&
+        state.get()->operations[i].op == internal::Operations::Add) {
+      state.get()->operations[i].op = internal::Operations::Fma;
+      state.get()->operations[i].override = std::format(
+          "{0}[gid1 * {0}_stride[gid0]] = fma({1}[gid1 * {1}_stride[gid0]], {2}[gid1 * "
+          "{2}_stride[gid0]], {3}[gid1 * {3}_stride[gid0]]);",
+          state.get()->operations[i + 1].output._data->name,
+          state.get()->operations[i].lhs._data->name, state.get()->operations[i].rhs._data->name,
+          state.get()->operations[i + 1].rhs._data->name);
+      state.get()->operations.erase(state.get()->operations.begin() + i + 1);
+    }
+  }
+}
+
+inline auto genKernel(cl::Context context, JitState state, const std::vector<JitTracer>& params)
+    -> cl::Kernel {
   std::string kernel = "__kernel void kern(";
   for (const auto& tracer : params) {
     // Parameter
@@ -262,15 +278,6 @@ for (int i = global1 - 1; i > 0; i >>= 1) {{
                         operation.output._data->name, operation.lhs._data->name);
         break;
       }
-      case internal::Operations::SinScalar:
-      case internal::Operations::CosScalar:
-      case internal::Operations::TanScalar:
-      case internal::Operations::AsinScalar:
-      case internal::Operations::AcosScalar:
-      case internal::Operations::AtanScalar:
-        // Scalar trig functions don't make sense in this context - ignore
-        break;
-
       // Hyperbolic functions
       case internal::Operations::Sinh: {
         kernel +=
@@ -308,15 +315,6 @@ for (int i = global1 - 1; i > 0; i >>= 1) {{
                         operation.output._data->name, operation.lhs._data->name);
         break;
       }
-      case internal::Operations::SinhScalar:
-      case internal::Operations::CoshScalar:
-      case internal::Operations::TanhScalar:
-      case internal::Operations::AsinhScalar:
-      case internal::Operations::AcoshScalar:
-      case internal::Operations::AtanhScalar:
-        // Scalar hyperbolic functions don't make sense - ignore
-        break;
-
       // Exponential and logarithmic functions
       case internal::Operations::Exp: {
         kernel += std::format("{0}[gid1 * {0}_stride[gid0]] = exp({1}[gid1 * {1}_stride[gid0]]);\n",
@@ -364,17 +362,6 @@ for (int i = global1 - 1; i > 0; i >>= 1) {{
                         operation.output._data->name, operation.lhs._data->name);
         break;
       }
-      case internal::Operations::ExpScalar:
-      case internal::Operations::Exp2Scalar:
-      case internal::Operations::Exp10Scalar:
-      case internal::Operations::Expm1Scalar:
-      case internal::Operations::LogScalar:
-      case internal::Operations::Log2Scalar:
-      case internal::Operations::Log10Scalar:
-      case internal::Operations::Log1pScalar:
-        // Scalar exp/log functions don't make sense - ignore
-        break;
-
       // Power functions
       case internal::Operations::Pow: {
         kernel += std::format(
@@ -421,10 +408,6 @@ for (int i = global1 - 1; i > 0; i >>= 1) {{
             operation.output._data->name, operation.lhs._data->name, operation.rhs_scalar);
         break;
       }
-      case internal::Operations::SqrtScalar:
-        // Scalar sqrt doesn't make sense - ignore
-        break;
-
       // Rounding and absolute value functions
       case internal::Operations::Floor: {
         kernel +=
@@ -474,17 +457,6 @@ for (int i = global1 - 1; i > 0; i >>= 1) {{
                         operation.output._data->name, operation.lhs._data->name);
         break;
       }
-      case internal::Operations::FloorScalar:
-      case internal::Operations::CeilScalar:
-      case internal::Operations::RoundScalar:
-      case internal::Operations::TruncScalar:
-      case internal::Operations::AbsScalar:
-      case internal::Operations::FabsScalar:
-      case internal::Operations::SignScalar:
-      case internal::Operations::FractScalar:
-        // Scalar rounding functions don't make sense - ignore
-        break;
-
       // Min/Max/Clamp functions
       case internal::Operations::Min: {
         kernel += std::format(
@@ -610,11 +582,12 @@ for (int i = global1 - 1; i > 0; i >>= 1) {{
             operation.output._data->name, operation.lhs._data->name, operation.rhs_scalar);
         break;
       }
-      case internal::Operations::CbrtScalar:
-      case internal::Operations::ErfScalar:
-      case internal::Operations::ErfcScalar:
-        // Scalar special functions don't make sense - ignore
+
+      // Special optimizer generated operations
+      case internal::Operations::Fma: {
+        kernel += operation.override;
         break;
+      }
     }
   }
 

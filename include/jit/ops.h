@@ -47,12 +47,6 @@ enum class Operations : std::uint16_t {
   Asin,
   Acos,
   Atan,
-  SinScalar,
-  CosScalar,
-  TanScalar,
-  AsinScalar,
-  AcosScalar,
-  AtanScalar,
 
   // Hyperbolic functions
   Sinh,
@@ -61,12 +55,6 @@ enum class Operations : std::uint16_t {
   Asinh,
   Acosh,
   Atanh,
-  SinhScalar,
-  CoshScalar,
-  TanhScalar,
-  AsinhScalar,
-  AcoshScalar,
-  AtanhScalar,
 
   // Exponential and logarithmic functions
   Exp,
@@ -77,14 +65,6 @@ enum class Operations : std::uint16_t {
   Log2,
   Log10,
   Log1p,
-  ExpScalar,
-  Exp2Scalar,
-  Exp10Scalar,
-  Expm1Scalar,
-  LogScalar,
-  Log2Scalar,
-  Log10Scalar,
-  Log1pScalar,
 
   // Power functions
   Pow,
@@ -94,7 +74,6 @@ enum class Operations : std::uint16_t {
   PowScalar,
   PownScalar,
   PowrScalar,
-  SqrtScalar,
 
   // Rounding and absolute value functions
   Floor,
@@ -105,14 +84,6 @@ enum class Operations : std::uint16_t {
   Fabs,
   Sign,
   Fract,
-  FloorScalar,
-  CeilScalar,
-  RoundScalar,
-  TruncScalar,
-  AbsScalar,
-  FabsScalar,
-  SignScalar,
-  FractScalar,
 
   // Min/Max/Clamp functions
   Min,
@@ -137,10 +108,10 @@ enum class Operations : std::uint16_t {
   Hypot,
   Erf,
   Erfc,
-  CbrtScalar,
   HypotScalar,
-  ErfScalar,
-  ErfcScalar,
+
+  // Special functions used by optimizer
+  Fma,
 };
 
 struct OperationStack {
@@ -151,6 +122,7 @@ struct OperationStack {
   JitTracer rhs2{nullptr};  // For ternary operations like clamp, fma
   float rhs_scalar{0.0f};
   float rhs2_scalar{0.0f};  // For scalar ternary operations
+  std::string override;
 };
 }  // namespace jitcl::internal
 
